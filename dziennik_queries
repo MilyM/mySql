@@ -1,0 +1,72 @@
+--oceny z 7 dni, wiecej niz jedna 
+SELECT uczen.imie, uczen.nazwisko, count(ocena.id) AS Ilosc_Ocen_7_Dni
+FROM ocena
+JOIN uczen ON uczen.id=ocena.id_ucznia 
+WHERE datediff(now(), data_wystawienia) < 7 
+GROUP BY uczen.id
+Having count(ocena.id) > 1; 
+--liczebnosc klas
+SELECT klasa.klasa, klasa.profil, count(uczen.id_klasy) AS LiczbaOsob
+FROM uczen 
+JOIN klasa ON uczen.id_klasy=klasa.id 
+GROUP BY klasa.id;
+--wychowawcy
+SELECT klasa.profil, klasa.klasa, nauczyciel.tytul_naukowy, nauczyciel.nazwisko 
+FROM klasa 
+JOIN nauczyciel on klasa.id_nauczyciela=nauczyciel.id
+GROUP BY nauczyciel.id
+ORDER By Nauczyciel.Nazwisko;
+--najlepsze srednie
+SELECT uczen.imie, uczen.nazwisko, avg(ocena.ocena) AS NajlepszeSrednie
+FROM ocena 
+JOIN uczen ON uczen.id=ocena.id_ucznia
+GROUP BY uczen.id
+ORDER BY NajlepszeSrednie DESC
+LIMIT 3;
+--srednie przedmioty
+SELECT przedmiot.nazwa, nauczyciel.tytul_naukowy, nauczyciel.nazwisko, avg(ocena.ocena) AS Srednia 
+FROM ocena 
+JOIN przedmiot ON przedmiot.id=ocena.id_przedmiotu 
+JOIN nauczyciel ON przedmiot.id_nauczyciela=nauczyciel.id
+GROUP BY przedmiot.id
+ORDER BY Srednia DESC;
+--kto wystawia jedynki
+SELECT nauczyciel.nazwisko, count(ocena.id) as Liczba_Jedynek
+FROM OCENA cakll
+JOIN przedmiot on ocena.id_przedmiotu=przedmiot.id
+JOIN nauczyciel on przedmiot.id_nauczyciela=nauczyciel.id
+WHERE ocena.ocena = 1
+GROUP BY nauczyciel.id
+ORDER BY Liczba_Jedynek DESC;
+
+--procedura
+DELIMITER $$
+CREATE PROCEDURE sredniePrzedmiot(nazwaPrzedmiotu text)
+BEGIN
+SELECT uczen.imie, uczen.nazwisko, avg(ocena.ocena) AS ChemiaSrednia 
+FROM ocena 
+JOIN uczen ON uczen.id=ocena.id_ucznia
+JOIN przedmiot ON przedmiot.id=ocena.id_przedmiotu 
+WHERE przedmiot.nazwa LIKE nazwaPrzedmiotu
+GROUP BY uczen.id
+ORDER BY ChemiaSrednia DESC;
+END
+$$
+DELIMITER ;
+
+call sredniaPrzedmiot("zmienna");
+
+DELIMITER $$ 
+CREATE PROCEDURE ostatnieOceny(ileDni int)
+BEGIN 
+SELECT uczen.imie, uczen.nazwisko, ocena.ocena, przedmiot.nazwa, ocena.opis
+FROM OCENA
+JOIN uczen ON uczen.id=ocena.id_ucznia 
+JOIN przedmiot ON przedmiot.id=ocena.id_przedmiotu 
+WHERE datediff(now(), data_wystawienia) < ileDni;
+END
+$$
+DELIMITER ;
+call ostatnieOceny(7);
+
+
