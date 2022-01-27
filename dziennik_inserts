@@ -1,0 +1,68 @@
+--nauczyciel
+INSERT INTO `nauczyciel` (`Id`, `Imie`, `Nazwisko`, `mail`, `tytul_naukowy`) VALUES
+(NULL, 'Milosz', 'Cygan', 'mily.mc02@gmail.com','Profesor'),
+(NULL, 'Michal', 'Ziemanek', 'ziemankov2@gmail.com','Doktor hab.'),
+(NULL, 'Jan', 'Dobry', 'jd@gmail.com','Doktor'),
+(NULL, 'Janinia', 'Trap', 'jatrap@gmail.com','Magister'),
+(NULL, 'Jonasz', 'Ziele', 'greenjonek@gmail.com','Inzynier');
+
+--przedmioty
+INSERT INTO `przedmiot` (`Id`, `Nazwa`, `id_nauczyciela`) VALUES
+(NULL, 'Chemia', 1),
+(NULL, 'Polski', 2),
+(NULL, 'Matematyka', 5),
+(NULL, 'Biologia', 4),
+(NULL, 'Religia', 3),
+(NULL, 'Filozofia', 1);
+
+INSERT INTO `klasa` (`Id`, `klasa`, `profil`, `id_nauczyciela`, `rocznik`) VALUES
+(NULL, 1, 'mat-inf', 1, 2019),
+(NULL, 2, 'pol-hist', 2, 2018),
+(NULL, 3, 'biol-chem', 3, 2017),
+(NULL, 1, 'mat-inf', 4, 2019);
+
+INSERT INTO `uczen` (`Id`, `Imie`, `Nazwisko`, `Data_urodzenia`, `id_klasy`, `PESEL`) VALUES
+(NULL, 'Milosz', 'Mniejszy', '1999-12-23', 1,'99122333411'),
+(NULL, 'Marek', 'Erski','1998-11-23',2, '99133333331'),
+(NULL, 'Katarzyna', 'Rozmus','2001-03-23', 1, '99122333411'),
+(NULL, 'Jurand', 'Kasa','1999-08-13', 3, '99122333411'),
+(NULL, 'Janusz', 'Szop','2002-12-03', 4, '99122333411'),
+(NULL, 'Justyna', 'Urna','1999-12-21', 1, '99122333411'),
+(NULL, 'Andrzej', 'Kalisz','2007-12-23', 2, '99122333411'),
+(NULL, 'Andrzej', 'Duzy','1999-12-23', 3, '99122333411'),
+(NULL, 'Wiktor', 'Fridlajn','2006-04-23', 4, '99122333411'),
+(NULL, 'Sebastian', 'Frdlajn','2000-12-04', 4, '99122333411')
+INSERT INTO `uczen` (`Id`, `Imie`, `Nazwisko`, `Data_urodzenia`, `id_klasy`, `PESEL`) VALUES
+(NULL, 'Ezechiel', 'Smirnov','1999-11-23', 1, DEFAULT )
+
+INSERT INTO `ocena` (`Id`, `id_ucznia`, `id_przedmiotu`, `opis`, `data_wystawienia`, `ocena`) VALUES 
+(NULL, 1, 1, 'odpowiedz', '2021-01-22', 1),
+(NULL, 1, 2, 'kartkowka', '2021-01-23', 4),
+(NULL, 2, 3, 'sprawdzian', '2021-01-24', 2),
+(NULL, 2, 4, 'odpowiedz', '2021-01-25', 3),
+(NULL, 3, 1, 'sprawdzian', '2021-02-21', 6),
+(NULL, 3, 1, 'kartkowka', '2021-03-21', 5),
+(NULL, 4, 6, 'odpowiedz', '2021-01-22', 3),
+(NULL, 4, 5, 'sprawdzian', '2021-01-05', 4),
+(NULL, 4, 4, 'odpowiedz', '2021-01-06', 6),
+(NULL, 5, 3, 'sprawdzian', '2021-01-30', 6),
+(NULL, 5, 2, 'odpowiedz', '2021-02-21', 1),
+(NULL, 6, 1, 'sprawdzian', '2021-01-21', 1),
+(NULL, 7, 1, 'odpowiedz', '2021-03-21', 2),
+(NULL, 7, 2, 'odpowiedz', '2021-01-21', 1),
+(NULL, 8, 3, 'sprawdzian', '2021-04-21', 6),
+(NULL, 8, 4, 'odpowiedz', '2021-01-21', 5),
+(NULL, 9, 5, 'kartkowka', '2021-01-21', 4),
+(NULL, 10, 6, 'kartkowka', DEFAULT, 3),
+(NULL, 10, 6, 'odpowiedz', DEFAULT, 5),
+(NULL, 11, 5, 'sprawdzian', DEFAULT, 4),
+(NULL, 11, 4, 'kartkowka', '2021-01-21', 4),
+(NULL, 11, 3, 'odpowiedz', '2021-01-21', 3),
+
+INSERT INTO `ocena` (`Id`, `id_ucznia`, `id_przedmiotu`, `opis`, `data_wystawienia`, `ocena`) VALUES 
+(NULL, 1, 1, 'odpowiedz', '2021-01-12', 1),
+(NULL, 1, 1, 'kartkowka', '2021-01-13', 5),
+(NULL, 2, 1, 'sprawdzian', '2021-01-14', 3),
+(NULL, 2, 1, 'odpowiedz', '2021-01-05', 5),
+(NULL, 3, 1, 'sprawdzian', '2021-02-01', 6),
+(NULL, 3, 1, 'kartkowka', '2021-03-01', 5);
